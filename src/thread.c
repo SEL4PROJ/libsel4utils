@@ -243,7 +243,7 @@ static int
 fault_handler(char *name, seL4_CPtr endpoint)
 {
     seL4_Word badge;
-    seL4_MessageInfo_t info = seL4_Wait(endpoint, &badge);
+    seL4_MessageInfo_t info = seL4_Recv(endpoint, &badge);
 
     while (1) {
         sel4utils_print_fault_message(info, name);
