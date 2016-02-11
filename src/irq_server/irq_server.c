@@ -210,7 +210,7 @@ _irq_thread_entry(struct irq_server_thread* st)
     while (1) {
         seL4_MessageInfo_t info;
         seL4_Word badge;
-        info = seL4_Wait(aep, &badge);
+        info = seL4_Recv(aep, &badge);
         assert(badge != 0);
         if (sep != seL4_CapNull) {
             /* Synchronous endpoint registered. Send IPC */
@@ -396,7 +396,7 @@ irq_server_wait_for_irq(irq_server_t irq_server, seL4_Word* badge_ret)
     seL4_Word badge;
 
     /* Wait for an event */
-    msginfo = seL4_Wait(irq_server->delivery_ep, &badge);
+    msginfo = seL4_Recv(irq_server->delivery_ep, &badge);
     if (badge_ret) {
         *badge_ret = badge;
     }
